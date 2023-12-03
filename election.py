@@ -71,13 +71,15 @@ def findClosest( array, value):
 #simulation       
 results = []
 differences = []
+absResults = []
+absDifferences=[]
 for number in range(0, simulations):
     
 
     #creating voters
     #https://www.pewresearch.org/politics/2014/06/12/political-polarization-in-the-american-public/
     #94% of dems are to the left of the median rep, so standard deviation = 1.286
-    #92% of reps are to the left of the median rep, so standard deviation = 1.423
+    #92% of reps are to the left of the median dem, so standard deviation = 1.423
     #instead i average it out to get 1.36 for 93%
     numRep = int(0.01*numVoters*percentRepublican)
     demVoters = np.sort(np.random.normal(loc = -1, scale = 1.36, size = numVoters-numRep))
@@ -138,6 +140,7 @@ for number in range(0, simulations):
     else:
         #RCV
         votes = [None]*numVoters
+        #creating preferences
         for k in range(0,numVoters):
             i = voters[k]
             voterPoliticians = generalPoliticians.copy()
@@ -151,7 +154,8 @@ for number in range(0, simulations):
                 
             tempArray.append(voterPoliticians[0])
             votes[k]= tempArray
-            
+        
+        #finding the winner   
         while(winner is None):
             totals = [0]*len(generalPoliticians)
             for i in votes:
@@ -169,15 +173,12 @@ for number in range(0, simulations):
         
     #end result
     results.append(winner)
+    absResults.append(abs(winner))
     differences.append(winner - np.median(voters))
+    absDifferences.append(abs(winner-np.median(voters)))
 
 #results
-absResults = []
-absDifferences=[]
-for i in results:
-    absResults.append(abs(i))
-for i in differences:
-    absDifferences.append(abs(i))
+print("Note that a value of 1 symbolizes the average republican and a value of -1 symbolizes an average democrat, with 0 being a centrist.")
 print(f"The mean election result was {np.mean(results)}")
 print(f"The mean absolute election result was {np.mean(absResults)}")
 print(f"The average distance from median was {np.mean(differences)}")
