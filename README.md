@@ -8,7 +8,7 @@ This program simulates elections with one of the following three formats:
 
 Additionally, the user can choose the breakdown of the district (% republican/democrat), the number of voters, the number of politicians running from each party, and the number of times the simulation should be run.
 
-The simulation will return the average result, average absolute vote, average vector istance from the median, and average scalar distance from the median.
+The simulation will return the average result, average absolute vote, average vector distance from the median, and average scalar distance from the median.
 
 This program makes the following assumptions: 
 - Everyone who votes in the primary votes in the general
