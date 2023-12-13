@@ -1,6 +1,7 @@
 from enum import Enum
 import numpy as np
 import matplotlib.pyplot as plt
+from matplotlib.ticker import PercentFormatter
 
 
 #asking user for inputs
@@ -82,15 +83,28 @@ for number in range(0, simulations):
     #92% of reps are to the left of the median dem, so standard deviation = 1.423
     #instead i average it out to get 1.36 for 93%
     numRep = int(0.01*numVoters*percentRepublican)
-    demVoters = np.sort(np.random.normal(loc = -1, scale = 1.36, size = numVoters-numRep))
-    repVoters = np.sort(np.random.normal(loc = 1, scale = 1.36, size = numRep))
+    demVoters = np.sort(np.random.normal(loc = -1,  scale = 1.36, size = numVoters-numRep))
+    repVoters = np.sort(np.random.normal(loc = 1,  scale = 1.36, size = numRep))
     voters = np.sort(np.concatenate([demVoters, repVoters]))
    
-
+    ##graphing voters
+    """
+    bins = np.linspace(-3, 3, 24)
+    plt.hist(demVoters, bins, color = "blue", alpha = 0.25, label="Democrats", weights =  np.ones(len(demVoters)) / len(voters))
+    plt.hist(repVoters, bins, color = "red", alpha = 0.25, label="Republicans", weights =  np.ones(len(repVoters)) / len(voters))
+    plt.xlabel("Ideological score")
+    plt.ylabel("Frequency")
+    plt.axvline(np.median(demVoters), label = "Median Democrat Voter", color = "Blue", linestyle = "dashed")
+    plt.axvline(np.median(repVoters), label = "Median Republican Voter", color = "Red", linestyle = "dashed")
+    plt.gca().yaxis.set_major_formatter(PercentFormatter(1, decimals = 1))
+    plt.legend()
+    plt.xlim([-3,3])
+    plt.show()
+    """
+   
     #creating politicians
     demPoliticians = np.sort(np.random.normal(loc = -1, scale = 1.36, size = numPoliticians))
     repPoliticians = np.sort(np.random.normal(loc =  1, scale = 1.36, size = numPoliticians))
-
 
 
     #primary           
